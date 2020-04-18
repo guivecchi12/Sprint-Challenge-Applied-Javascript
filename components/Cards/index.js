@@ -18,3 +18,79 @@
 // </div>
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
+
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+    .then((response)=>{
+        console.log(response.data.articles);
+
+        for(let [key, value] of Object.entries(response.data.articles)){
+
+            let card = document.createElement('div');
+            card.classList.add('card');
+
+            value.forEach((hl)=>{
+                //console.log(hl);
+
+                let headline = document.createElement('div');
+                headline.classList.add('headline');
+                headline.textContent = hl.headline;
+                card.appendChild(headline);
+
+                let author = document.createElement('div');
+                author.classList.add('author');
+                card.appendChild(author);
+
+                let imgC = document.createElement('div');
+                imgC.classList.add('img-container');
+                author.appendChild(imgC);
+
+                let img = document.createElement('img');
+                img.src = hl.authorPhoto;
+                imgC.appendChild(img);
+
+                let name = document.createElement('span');
+                name.textContent = "By " + hl.authorName;
+                author.appendChild(name);
+
+            })
+            //console.log(card);
+            let cardsC = document.querySelector('div.cards-container');
+            cardsC.appendChild(card);
+        }
+        
+
+        // response.forEach((art)=>{
+        //     console.log(art);
+
+            // let card = document.createElement('div');
+            // card.classList.add('card');
+
+            // art.forEach((hl)=>{
+            //     let headline = document.createElement('div');
+            //     headline.classList.add('headline');
+            //     headline.textContent = hl.headline;
+            //     card.appendChild(headline);
+
+            //     let author = document.createElement('div');
+            //     author.classList.add('author');
+            //     card.appendChild(author);
+
+            //     let imgC = document.createElement('div');
+            //     imgC.classList.add('img-container');
+            //     author.appendChild(imgC);
+
+            //     let img = document.createElement('img');
+            //     img.src = hl.authorPhoto;
+            //     imgC.appendChild(img);
+
+            //     let name = document.createElement('span');
+            //     name.textContent = "By " + hl.authorName;
+            //     author.appendChild(name);
+            // })
+            // console.log(card);
+            
+        // })
+        
+
+    })
+    .catch(console.log)
