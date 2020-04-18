@@ -21,15 +21,17 @@
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
     .then((response)=>{
-        console.log(response.data.articles);
+        //console.log(response.data.articles);
+        let articles = response.data.articles;
 
-        for(let [key, value] of Object.entries(response.data.articles)){
-
-            let card = document.createElement('div');
-            card.classList.add('card');
-
+        for(let [key, value] of Object.entries(articles)){
+            //console.log(Object.keys(response.data.article));
+            
             value.forEach((hl)=>{
                 //console.log(hl);
+
+                let card = document.createElement('div');
+                card.classList.add('card');
 
                 let headline = document.createElement('div');
                 headline.classList.add('headline');
@@ -52,10 +54,11 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
                 name.textContent = "By " + hl.authorName;
                 author.appendChild(name);
 
+                let cardsC = document.querySelector('div.cards-container');
+                cardsC.appendChild(card);
+
             })
-            //console.log(card);
-            let cardsC = document.querySelector('div.cards-container');
-            cardsC.appendChild(card);
+            
         }
         
 
